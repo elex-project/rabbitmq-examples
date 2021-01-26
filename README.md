@@ -22,7 +22,6 @@ implementation("com.rabbitmq:amqp-client:5.10.0")
 ```
 
 ## 다이렉트 익스체인지
-`HelloRabbit.java`
 * 익스체인지는 브로커가 메시지를 받는 곳이다. 즉, 메시지를 보낼 때는 익스체인지로 보내야 한다.
 * 큐는 브로커가 메시지를 보내는 곳이다. 즉, 메시지를 받을 때는 큐로부터 받는다.
 * 익스체인지와 큐는 라우팅-키로 서로 바인딩된다. 여러 개의 라우팅-키로 여러 번 바인딩 할 수도 있다.
@@ -54,3 +53,10 @@ docker run -d --restart=always --name=rabbitmq \
 -e RABBITMQ_SSL_VERIFY=verify_none \
 rabbitmq:3.8.11-management
 ```
+
+-----
+Copyright (c) 2021 Elex.
+
+All Rights Reserved.
+
+https://www.elex-project.com/

@@ -1,2 +1,1 @@
-rootProject.name = "rabbitmq-example"
-
+rootProject.name = "rabbitmq-examples"
