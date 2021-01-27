@@ -47,6 +47,10 @@ dependencies {
     // https://mvnrepository.com/artifact/com.rabbitmq/amqp-client
     implementation("com.rabbitmq:amqp-client:5.10.0")
 
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
+    implementation("org.bouncycastle:bcprov-jdk15on:1.68")
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on
+    implementation("org.bouncycastle:bcpkix-jdk15on:1.68")
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 }

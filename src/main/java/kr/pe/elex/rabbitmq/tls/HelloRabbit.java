@@ -8,12 +8,13 @@ package kr.pe.elex.rabbitmq.tls;
 import com.rabbitmq.client.*;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.security.*;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.concurrent.TimeoutException;
 
@@ -34,22 +35,11 @@ public class HelloRabbit {
 
 	private SSLContext sslContext()
 			throws NoSuchAlgorithmException, KeyStoreException, UnrecoverableKeyException, KeyManagementException, IOException, CertificateException {
-
-		KeyStore keyStore = KeyStore.getInstance("PKCS12");
-		// 클라이언트 키와 인증서가 들어있습니다. OpenSSL로 만들고 PKCS12 키 저장소에 넣었습니다.
-		keyStore.load(getClass().getResourceAsStream("/clientstore.p12"), "test".toCharArray());
-		KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
-		kmf.init(keyStore, "test1".toCharArray());
-
-		KeyStore trustKeyStore = KeyStore.getInstance("PKCS12");
-		// CA 인증서가 들어있습니다.
-		trustKeyStore.load(getClass().getResourceAsStream("/truststore.p12"), "test".toCharArray());
-		TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
-		tmf.init(trustKeyStore);
-
-		SSLContext context = SSLContext.getInstance("TLSv1.3");
-		context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-		return context;
+		return TlsHelper.context(getClass().getResourceAsStream("/clientstore.p12"),
+				"test".toCharArray(),
+				"test1".toCharArray(),
+				getClass().getResourceAsStream("/truststore.p12"),
+				"test".toCharArray());
 	}
 
 	HelloRabbit() throws IOException, TimeoutException, KeyManagementException, NoSuchAlgorithmException, UnrecoverableKeyException, KeyStoreException, CertificateException {
